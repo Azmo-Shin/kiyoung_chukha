@@ -95,6 +95,22 @@
             to { background-position: 200% center; }
         }
 
+        .photo-frame {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 20px auto 15px;
+            border: 4px solid rgba(255,210,0,0.5);
+            box-shadow: 0 0 30px rgba(255,210,0,0.2), 0 0 60px rgba(255,210,0,0.1);
+            animation: fadeInUp 1s ease-out 0.15s both;
+        }
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .company-badge {
             display: inline-block;
             background: rgba(255,210,0,0.15);
@@ -267,6 +283,7 @@
         @media (max-width: 600px) {
             body { padding: 30px 15px 80px; }
             h1 { font-size: 2rem; }
+            .photo-frame { width: 140px; height: 140px; }
             .name-highlight { font-size: 1.3rem; }
             .message-box { padding: 25px 20px; }
             .message-box p { font-size: 0.95rem; }
@@ -283,6 +300,9 @@
     <div class="intro">
         <p class="drum-roll">오늘은 두구두구 바로! 💕</p>
         <div class="emoji-top">🎉</div>
+        <div class="photo-frame">
+            <img src="photo.png" alt="최수명 본부장님">
+        </div>
         <div class="company-badge">기영에프앤비 브랜드전략본부</div>
         <p class="name-highlight">
             <span class="heart-deco">💖</span>
