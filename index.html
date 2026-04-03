@@ -2,320 +2,447 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎉 최수명 본부장님 7주년 축하</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>최수명 본부장님 7주년 축하</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100dvh;
             font-family: 'Noto Sans KR', sans-serif;
             color: #fff;
             overflow-x: hidden;
-            padding: 40px 20px 80px;
+            background: #0a0a1a;
         }
 
-        /* 떨어지는 색종이 */
-        .confetti {
+        /* ===== 배경 그라데이션 ===== */
+        .bg-gradient {
             position: fixed;
-            top: -10px;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 0%, rgba(120, 80, 200, 0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255, 140, 50, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(60, 40, 150, 0.3) 0%, transparent 50%),
+                linear-gradient(180deg, #0a0a1a 0%, #151530 50%, #0d0d20 100%);
             z-index: 0;
-            animation: fall linear infinite;
-            pointer-events: none;
-        }
-        @keyframes fall {
-            to { transform: translateY(105vh) rotate(720deg); }
         }
 
-        /* 반짝이는 별 */
-        .sparkle {
-            position: fixed;
-            width: 4px; height: 4px;
-            background: #fff;
+        /* ===== 떨어지는 색종이 ===== */
+        .confetti-container { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+        .confetti-piece {
+            position: absolute;
+            top: -20px;
+            width: 10px; height: 10px;
+            border-radius: 2px;
+            animation: confetti-fall linear infinite;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-20px) rotate(0deg) scale(1); opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(100dvh) rotate(720deg) scale(0.5); opacity: 0; }
+        }
+
+        /* ===== 빛나는 파티클 ===== */
+        .particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+        .particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: rgba(255, 210, 100, 0.6);
             border-radius: 50%;
-            animation: twinkle 2s ease-in-out infinite;
-            pointer-events: none;
+            animation: float-particle ease-in-out infinite;
         }
-        @keyframes twinkle {
-            0%, 100% { opacity: 0; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1); }
+        @keyframes float-particle {
+            0%, 100% { transform: translateY(0) scale(0); opacity: 0; }
+            20% { opacity: 1; transform: translateY(-10px) scale(1); }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-80px) scale(0); opacity: 0; }
         }
 
-        .container {
-            text-align: center;
+        /* ===== 메인 컨텐츠 ===== */
+        .page {
+            position: relative;
             z-index: 10;
-            max-width: 640px;
-            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 0 24px 100px;
         }
 
-        /* 인트로 섹션 */
-        .intro {
-            animation: fadeInUp 1s ease-out;
-            margin-bottom: 30px;
+        /* ===== 히어로 섹션 ===== */
+        .hero {
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 0;
         }
 
-        .drum-roll {
-            font-size: 1.3rem;
-            color: #ffd200;
-            margin-bottom: 15px;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
-        .emoji-top {
-            font-size: 4rem;
-            animation: bounce 1.5s ease-in-out infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        h1 {
-            font-size: 2.6rem;
-            font-weight: 900;
-            margin: 15px 0 5px;
-            background: linear-gradient(90deg, #f7971e, #ffd200, #f7971e);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
-        }
-        @keyframes shimmer {
-            to { background-position: 200% center; }
-        }
-
-        .photo-frame {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 20px auto 15px;
-            border: 4px solid rgba(255,210,0,0.5);
-            box-shadow: 0 0 30px rgba(255,210,0,0.2), 0 0 60px rgba(255,210,0,0.1);
-            animation: fadeInUp 1s ease-out 0.15s both;
-        }
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .company-badge {
-            display: inline-block;
-            background: rgba(255,210,0,0.15);
-            border: 1px solid rgba(255,210,0,0.3);
+        .badge-7th {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, rgba(255,180,50,0.2), rgba(255,120,50,0.1));
+            border: 1px solid rgba(255,180,50,0.3);
             border-radius: 30px;
-            padding: 6px 20px;
-            font-size: 0.95rem;
-            color: #ffd200;
-            margin-bottom: 10px;
-            animation: fadeInUp 1s ease-out 0.2s both;
+            padding: 8px 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #ffcc70;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: fadeIn 1s ease 0.2s both;
         }
 
-        .name-highlight {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin: 10px 0 5px;
-            animation: fadeInUp 1s ease-out 0.4s both;
+        .photo-area {
+            margin: 28px 0 24px;
+            position: relative;
+            animation: fadeIn 1s ease 0.4s both;
+        }
+        .photo-ring {
+            width: 170px; height: 170px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, #ffd700, #ff8c42, #ffd700, #ffb347);
+            background-size: 300% 300%;
+            animation: ring-shimmer 4s ease infinite;
+            box-shadow:
+                0 0 30px rgba(255,200,50,0.2),
+                0 0 60px rgba(255,150,50,0.1);
+        }
+        @keyframes ring-shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .photo-ring img {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 3px solid #0a0a1a;
+        }
+        .photo-sparkles {
+            position: absolute;
+            inset: -15px;
+            pointer-events: none;
+        }
+        .photo-sparkle {
+            position: absolute;
+            font-size: 14px;
+            animation: sparkle-pop 2s ease-in-out infinite;
+        }
+        @keyframes sparkle-pop {
+            0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1) rotate(180deg); opacity: 1; }
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: #ccc;
-            animation: fadeInUp 1s ease-out 0.5s both;
+        .hero-company {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            animation: fadeIn 1s ease 0.6s both;
         }
 
-        /* 메시지 카드 */
-        .message-box {
-            background: rgba(255,255,255,0.06);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 24px;
-            padding: 40px 35px;
-            margin: 25px auto;
-            text-align: left;
-            animation: fadeInUp 1s ease-out 0.6s both;
+        .hero-name {
+            font-size: 1.7rem;
+            font-weight: 900;
+            margin-bottom: 6px;
+            animation: fadeIn 1s ease 0.7s both;
         }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .message-box p {
-            font-size: 1.05rem;
-            line-height: 2;
-            color: #e0e0e0;
-            margin-bottom: 18px;
-            word-break: keep-all;
-        }
-        .message-box p:last-child {
-            margin-bottom: 0;
-        }
-
-        .heart-deco {
-            color: #ff6b9d;
-            animation: heartbeat 1.2s ease-in-out infinite;
+        .hero-name .heart {
             display: inline-block;
+            animation: heartbeat 1.5s ease infinite;
+            font-size: 1.3rem;
         }
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
-            25% { transform: scale(1.15); }
-            50% { transform: scale(1); }
-            75% { transform: scale(1.1); }
+            15% { transform: scale(1.2); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
         }
 
-        /* 3행시 카드 */
-        .acrostic-box {
-            background: rgba(255,210,0,0.08);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,210,0,0.2);
-            border-radius: 24px;
-            padding: 35px;
-            margin: 25px auto;
-            animation: fadeInUp 1s ease-out 0.8s both;
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffd700, #ffb347, #ffd700);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1s ease 0.8s both, title-shimmer 4s linear infinite;
+            margin-bottom: 16px;
+        }
+        @keyframes title-shimmer {
+            to { background-position: 200% center; }
         }
 
-        .acrostic-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #ffd200;
-            margin-bottom: 20px;
+        .hero-sub {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 300;
+            animation: fadeIn 1s ease 1s both;
+        }
+
+        .scroll-hint {
+            margin-top: 40px;
+            animation: fadeIn 1s ease 1.5s both;
+        }
+        .scroll-arrow {
+            width: 24px; height: 24px;
+            border-right: 2px solid rgba(255,200,50,0.4);
+            border-bottom: 2px solid rgba(255,200,50,0.4);
+            transform: rotate(45deg);
+            animation: scroll-bounce 2s ease infinite;
+        }
+        @keyframes scroll-bounce {
+            0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+            50% { transform: rotate(45deg) translateY(8px); opacity: 1; }
+        }
+
+        /* ===== 드럼롤 섹션 ===== */
+        .drumroll {
             text-align: center;
+            padding: 60px 0 20px;
+            font-size: 1.15rem;
+            color: #ffcc70;
+            font-weight: 500;
+            animation: fadeIn 0.8s ease both;
         }
 
-        .acrostic-line {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 14px;
-            padding: 8px 0;
+        /* ===== 메시지 카드들 ===== */
+        .card {
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 28px;
+            padding: 32px 26px;
+            margin-bottom: 20px;
         }
-        .acrostic-line:last-child { margin-bottom: 0; }
+        .card.gold-accent {
+            border-color: rgba(255,200,50,0.15);
+            background: linear-gradient(135deg, rgba(255,200,50,0.04), rgba(255,150,50,0.02));
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.95;
+            color: rgba(255,255,255,0.82);
+            word-break: keep-all;
+            font-weight: 300;
+        }
+        .card p + p { margin-top: 20px; }
+
+        .card-final {
+            text-align: center;
+            font-size: 1.1rem !important;
+            font-weight: 600 !important;
+            color: #ffd700 !important;
+            line-height: 1.8 !important;
+            padding-top: 8px;
+        }
+
+        /* ===== 구분선 ===== */
+        .sep {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 36px 0;
+            color: rgba(255,200,50,0.3);
+            font-size: 0.6rem;
+        }
+        .sep::before, .sep::after {
+            content: '';
+            width: 40px; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,200,50,0.3), transparent);
+        }
+
+        /* ===== 3행시 ===== */
+        .acrostic-title {
+            text-align: center;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 20px;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        .acrostic-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .acrostic-item:last-child { margin-bottom: 0; }
 
         .acrostic-char {
-            font-size: 2rem;
+            flex-shrink: 0;
+            width: 48px; height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
             font-weight: 900;
-            color: #ffd200;
-            min-width: 50px;
-            text-align: center;
-            line-height: 1.3;
+            background: linear-gradient(135deg, rgba(255,200,50,0.2), rgba(255,150,50,0.1));
+            border: 1px solid rgba(255,200,50,0.25);
+            border-radius: 14px;
+            color: #ffd700;
         }
 
         .acrostic-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #e0e0e0;
-            padding-top: 6px;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.78);
+            font-weight: 300;
+            padding-top: 10px;
         }
 
-        /* 함께 축하해주세요 */
-        .call-to-action {
-            font-size: 1.1rem;
-            color: #ccc;
-            margin: 25px 0 10px;
-            animation: fadeInUp 1s ease-out 1s both;
+        /* ===== CTA ===== */
+        .cta-section {
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+        .cta-text {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.8;
+            margin-bottom: 20px;
         }
 
-        /* 고양이 아트 */
         .cat-art {
-            font-size: 1.4rem;
-            line-height: 1.6;
-            letter-spacing: 2px;
-            margin: 20px auto;
-            animation: fadeInUp 1s ease-out 1.1s both;
-            user-select: none;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            margin-bottom: 30px;
         }
 
+        /* ===== 폭죽 버튼 ===== */
         .firework-btn {
-            margin-top: 25px;
-            padding: 14px 36px;
-            font-size: 1.1rem;
-            border: 2px solid #ffd200;
-            background: transparent;
-            color: #ffd200;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 40px;
+            font-size: 1rem;
+            font-weight: 600;
             font-family: 'Noto Sans KR', sans-serif;
-            animation: fadeInUp 1s ease-out 1.2s both;
-        }
-        .firework-btn:hover {
-            background: #ffd200;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ffd700, #ff8c42);
             color: #1a1a2e;
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255,210,0,0.4);
+            box-shadow: 0 4px 20px rgba(255,180,50,0.3);
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .firework-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 10px rgba(255,180,50,0.2);
         }
 
-        /* 폭죽 파티클 */
-        .firework-particle {
+        /* ===== 폭죽 파티클 ===== */
+        .fw-particle {
             position: fixed;
-            width: 6px; height: 6px;
             border-radius: 50%;
             pointer-events: none;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        footer {
-            position: fixed;
-            bottom: 20px;
-            color: #555;
-            font-size: 0.8rem;
-            z-index: 10;
+        /* ===== 푸터 ===== */
+        .footer {
+            text-align: center;
+            padding: 40px 0 30px;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.2);
         }
 
-        .divider {
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffd200, transparent);
-            margin: 20px auto;
+        /* ===== 스크롤 애니메이션 ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @media (max-width: 600px) {
-            body { padding: 30px 15px 80px; }
-            h1 { font-size: 2rem; }
-            .photo-frame { width: 140px; height: 140px; }
-            .name-highlight { font-size: 1.3rem; }
-            .message-box { padding: 25px 20px; }
-            .message-box p { font-size: 0.95rem; }
-            .acrostic-box { padding: 25px 20px; }
-            .acrostic-char { font-size: 1.6rem; min-width: 40px; }
-            .acrostic-text { font-size: 1rem; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== 데스크톱에서도 모바일 폭 유지 ===== */
+        @media (min-width: 500px) {
+            .page { padding: 0 calc((100vw - 420px) / 2 + 24px) 100px; max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- 인트로 -->
-    <div class="intro">
-        <p class="drum-roll">오늘은 두구두구 바로! 💕</p>
-        <div class="emoji-top">🎉</div>
-        <div class="photo-frame">
-            <img src="photo.png" alt="최수명 본부장님">
-        </div>
-        <div class="company-badge">기영에프앤비 브랜드전략본부</div>
-        <p class="name-highlight">
-            <span class="heart-deco">💖</span>
-            최수명 본부장님
-            <span class="heart-deco">💖</span>
-        </p>
-        <h1>입사 7주년 축하드립니다!</h1>
-    </div>
+<div class="bg-gradient"></div>
+<div class="confetti-container" id="confettiContainer"></div>
+<div class="particles" id="particlesContainer"></div>
 
-    <div class="divider"></div>
+<div class="page">
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="badge-7th">✦ 7th Anniversary ✦</div>
+
+        <div class="photo-area">
+            <div class="photo-ring">
+                <img src="photo.png" alt="최수명 본부장님">
+            </div>
+            <div class="photo-sparkles">
+                <span class="photo-sparkle" style="top:5%;left:10%;animation-delay:0s;">✦</span>
+                <span class="photo-sparkle" style="top:0%;right:15%;animation-delay:0.5s;">✧</span>
+                <span class="photo-sparkle" style="bottom:10%;left:5%;animation-delay:1s;">✦</span>
+                <span class="photo-sparkle" style="bottom:5%;right:8%;animation-delay:1.5s;">✧</span>
+                <span class="photo-sparkle" style="top:50%;left:-5%;animation-delay:0.7s;">✦</span>
+                <span class="photo-sparkle" style="top:40%;right:-5%;animation-delay:1.2s;">✧</span>
+            </div>
+        </div>
+
+        <p class="hero-company">기영에프앤비 브랜드전략본부</p>
+        <p class="hero-name">
+            <span class="heart">💖</span>
+            최수명 본부장님
+            <span class="heart">💖</span>
+        </p>
+        <h1 class="hero-title">7주년<br>축하드립니다</h1>
+        <p class="hero-sub">진심을 담아 축하의 마음을 전합니다</p>
+
+        <div class="scroll-hint">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- 드럼롤 -->
+    <p class="drumroll reveal">오늘은 두구두구 바로! 💕</p>
+
+    <div class="sep reveal">✦</div>
 
     <!-- 축하 메시지 -->
-    <div class="message-box">
+    <div class="card reveal">
+        <p>
+            기영에프앤비 브랜드전략본부<br>
+            <span class="heart" style="font-size:0.9em;">💖</span>
+            <strong style="color:#fff;">최수명 본부장님</strong>
+            <span class="heart" style="font-size:0.9em;">💖</span>의<br>
+            7주년을 진심으로 축하드립니다.
+        </p>
+    </div>
+
+    <div class="card reveal">
         <p>
             지난 7년간 보여주신 탁월한 리더십🏆과<br>
             브랜드에 대한 깊은 통찰,<br>
@@ -325,128 +452,161 @@
         <p>
             변화가 빠른 시장 속에서도<br>
             항상 본질을 지키며👋<br>
-            새로운 기회를 만들어주신 점에 깊이 감사드립니다.
+            새로운 기회를 만들어주신 점에<br>
+            깊이 감사드립니다.
         </p>
+    </div>
+
+    <div class="card reveal">
         <p>
-            앞으로도 지금처럼 뛰어난 안목과 열정으로<br>
+            앞으로도 지금처럼<br>
+            뛰어난 안목과 열정으로<br>
             더 큰 도약을 이끌어주시길 기대💕합니다.
         </p>
         <p>
             늘 건강하시고,<br>
-            앞으로의 여정에도 더 많은 성과와 기쁨이<br>
-            함께하시길 바랍니다.🎊
+            앞으로의 여정에도<br>
+            더 많은 성과와 기쁨이<br>
+            함께하시길 바랍니다. 🎊
         </p>
-        <p style="text-align:center; font-size:1.2rem; font-weight:700; color:#ffd200;">
+    </div>
+
+    <div class="card gold-accent reveal">
+        <p class="card-final">
             다시 한 번 뜻깊은 7주년을<br>
             진심으로 축하드립니다! 🎆
         </p>
     </div>
 
-    <!-- 최수명 3행시 -->
-    <div class="acrostic-box">
-        <p class="acrostic-title">✨ 최수명 3행시 ✨</p>
-        <div class="acrostic-line">
-            <span class="acrostic-char">최</span>
-            <span class="acrostic-text">최고의 리더십으로 7년간 브랜드의 길을 밝혀주시고</span>
+    <div class="sep reveal">✦</div>
+
+    <!-- 3행시 -->
+    <div class="card gold-accent reveal">
+        <p class="acrostic-title">✨ 최 수 명 3행시 ✨</p>
+        <div class="acrostic-item">
+            <div class="acrostic-char">최</div>
+            <div class="acrostic-text">최고의 리더십으로 7년간 브랜드의 길을 밝혀주시고</div>
         </div>
-        <div class="acrostic-line">
-            <span class="acrostic-char">수</span>
-            <span class="acrostic-text">수많은 도전 속에서도 흔들림 없는 방향을 제시해주셨기에</span>
+        <div class="acrostic-item">
+            <div class="acrostic-char">수</div>
+            <div class="acrostic-text">수많은 도전 속에서도 흔들림 없는 방향을 제시해주셨기에</div>
         </div>
-        <div class="acrostic-line">
-            <span class="acrostic-char">명</span>
-            <span class="acrostic-text">명실상부 우리 모두가 믿고 따르는 본부장님, 앞으로도 함께해요! 🎉</span>
+        <div class="acrostic-item">
+            <div class="acrostic-char">명</div>
+            <div class="acrostic-text">명실상부 우리 모두가 믿고 따르는 본부장님, 앞으로도 함께해요! 🎉</div>
         </div>
     </div>
 
-    <div class="divider"></div>
+    <div class="sep reveal">✦</div>
 
-    <!-- 함께 축하 -->
-    <p class="call-to-action">
-        모두 함께 따뜻한 축하의 마음을 전해주시기 바랍니다 🥺✨
-    </p>
+    <!-- CTA -->
+    <div class="cta-section reveal">
+        <p class="cta-text">
+            모두 함께 따뜻한 축하의 마음을<br>
+            전해주시기 바랍니다 🥹✨
+        </p>
 
-    <!-- 고양이 아트 -->
-    <div class="cat-art">
-        👋🐱🐱🧶🧶🧶🧶🧶🦵🐱👋<br>
-        🦵🦵🐱🧶🧶🧶🧶🧶🦵🦵🦵
+        <div class="cat-art">
+            👋🐱🐱🧶🧶🧶🧶🧶🦵🐱👋<br>
+            🦵🦵🐱🧶🧶🧶🧶🧶🦵🦵🦵
+        </div>
+
+        <button class="firework-btn" onclick="launchFireworks()">🎆 폭죽 터뜨리기</button>
     </div>
 
-    <button class="firework-btn" onclick="launchFireworks()">🎆 폭죽 터뜨리기</button>
+    <div class="footer">with 🤍 from 기영에프앤비</div>
 </div>
 
-<footer>with 🤍 from 기영에프앤비</footer>
-
 <script>
-    // 색종이 생성
-    function createConfetti() {
-        const colors = ['#ff6b6b','#ffd200','#4ecdc4','#a864fd','#ff9a9e','#84fab0','#fbc2eb','#ff6b9d'];
-        const shapes = ['■','●','▲','★','♦','♥'];
-        for (let i = 0; i < 45; i++) {
+    // 색종이
+    (function createConfetti() {
+        const container = document.getElementById('confettiContainer');
+        const colors = ['#ffd700','#ff6b9d','#4ecdc4','#a864fd','#ff9a9e','#84fab0','#fbc2eb','#ffb347'];
+        for (let i = 0; i < 35; i++) {
             const el = document.createElement('div');
-            el.className = 'confetti';
-            el.textContent = shapes[Math.floor(Math.random() * shapes.length)];
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.fontSize = (Math.random() * 14 + 8) + 'px';
-            el.style.color = colors[Math.floor(Math.random() * colors.length)];
-            el.style.animationDuration = (Math.random() * 4 + 4) + 's';
-            el.style.animationDelay = (Math.random() * 6) + 's';
-            el.style.opacity = Math.random() * 0.7 + 0.3;
-            document.body.appendChild(el);
+            el.className = 'confetti-piece';
+            el.style.left = Math.random() * 100 + '%';
+            el.style.background = colors[Math.floor(Math.random() * colors.length)];
+            el.style.width = (Math.random() * 8 + 5) + 'px';
+            el.style.height = (Math.random() * 8 + 5) + 'px';
+            el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            el.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            el.style.animationDelay = (Math.random() * 8) + 's';
+            el.style.opacity = Math.random() * 0.5 + 0.3;
+            container.appendChild(el);
         }
-    }
+    })();
 
-    // 반짝이 생성
-    function createSparkles() {
-        for (let i = 0; i < 30; i++) {
+    // 빛나는 파티클
+    (function createParticles() {
+        const container = document.getElementById('particlesContainer');
+        for (let i = 0; i < 20; i++) {
             const el = document.createElement('div');
-            el.className = 'sparkle';
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.top = Math.random() * 100 + 'vh';
-            el.style.animationDelay = (Math.random() * 3) + 's';
-            el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
-            document.body.appendChild(el);
+            el.className = 'particle';
+            el.style.left = Math.random() * 100 + '%';
+            el.style.top = Math.random() * 100 + '%';
+            el.style.animationDuration = (Math.random() * 4 + 3) + 's';
+            el.style.animationDelay = (Math.random() * 5) + 's';
+            container.appendChild(el);
         }
-    }
+    })();
 
-    // 폭죽 효과
+    // 스크롤 애니메이션
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // 폭죽
     function launchFireworks() {
-        const colors = ['#ff6b6b','#ffd200','#4ecdc4','#a864fd','#ff9a9e','#84fab0','#fbc2eb','#fff','#ff6b9d'];
-        for (let f = 0; f < 6; f++) {
+        const colors = ['#ffd700','#ff6b9d','#4ecdc4','#a864fd','#ff9a9e','#84fab0','#fbc2eb','#fff','#ffb347'];
+        const screenW = window.innerWidth;
+        const screenH = window.innerHeight;
+
+        for (let f = 0; f < 5; f++) {
             setTimeout(() => {
-                const cx = Math.random() * window.innerWidth * 0.6 + window.innerWidth * 0.2;
-                const cy = Math.random() * window.innerHeight * 0.4 + window.innerHeight * 0.1;
-                for (let i = 0; i < 35; i++) {
+                const cx = Math.random() * screenW * 0.6 + screenW * 0.2;
+                const cy = Math.random() * screenH * 0.35 + screenH * 0.1;
+                for (let i = 0; i < 28; i++) {
                     const p = document.createElement('div');
-                    p.className = 'firework-particle';
+                    p.className = 'fw-particle';
+                    const size = Math.random() * 5 + 3;
+                    p.style.width = size + 'px';
+                    p.style.height = size + 'px';
                     p.style.background = colors[Math.floor(Math.random() * colors.length)];
                     p.style.left = cx + 'px';
                     p.style.top = cy + 'px';
+                    p.style.boxShadow = `0 0 ${size * 2}px ${p.style.background}`;
                     document.body.appendChild(p);
 
-                    const angle = (Math.PI * 2 / 35) * i + (Math.random() - 0.5) * 0.5;
-                    const speed = Math.random() * 140 + 60;
+                    const angle = (Math.PI * 2 / 28) * i + (Math.random() - 0.5) * 0.6;
+                    const speed = Math.random() * 120 + 50;
                     const dx = Math.cos(angle) * speed;
                     const dy = Math.sin(angle) * speed;
+                    const gravity = Math.random() * 40 + 20;
 
                     p.animate([
                         { transform: 'translate(0,0) scale(1)', opacity: 1 },
-                        { transform: `translate(${dx}px,${dy}px) scale(0)`, opacity: 0 }
-                    ], { duration: 1200 + Math.random() * 500, easing: 'ease-out' });
+                        { transform: `translate(${dx * 0.7}px,${dy * 0.7 - 10}px) scale(1)`, opacity: 0.9, offset: 0.4 },
+                        { transform: `translate(${dx}px,${dy + gravity}px) scale(0)`, opacity: 0 }
+                    ], { duration: 1300 + Math.random() * 400, easing: 'ease-out' });
 
                     setTimeout(() => p.remove(), 1800);
                 }
             }, f * 350);
         }
+
+        // 진동 (모바일)
+        if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
     }
 
-    createConfetti();
-    createSparkles();
-
-    // 페이지 로드 시 자동 폭죽 1회
-    window.addEventListener('load', () => {
-        setTimeout(launchFireworks, 1500);
-    });
+    // 페이지 로드시 자동 폭죽
+    window.addEventListener('load', () => setTimeout(launchFireworks, 2000));
 </script>
 
 </body>
