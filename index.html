@@ -326,6 +326,46 @@
             margin-bottom: 30px;
         }
 
+        /* ===== 축하 카운터 ===== */
+        .counter-box {
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,200,50,0.12);
+            border-radius: 20px;
+            padding: 20px 28px;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        .counter-label {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 8px;
+        }
+        .counter-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            transition: transform 0.3s;
+        }
+        .counter-number.bump {
+            animation: counter-bump 0.4s ease;
+        }
+        @keyframes counter-bump {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .counter-unit {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+        }
+
         /* ===== 폭죽 버튼 ===== */
         .firework-btn {
             display: inline-flex;
@@ -511,7 +551,13 @@
             🦵🦵🐱🧶🧶🧶🧶🧶🦵🦵🦵
         </div>
 
-        <button class="firework-btn" onclick="launchFireworks()">🎆 폭죽 터뜨리기</button>
+        <div class="counter-box">
+            <p class="counter-label">🎉 지금까지</p>
+            <p class="counter-number" id="counterNum">-</p>
+            <p class="counter-unit">번 축하받았어요!</p>
+        </div>
+
+        <button class="firework-btn" onclick="celebrate()">🎆 축하 폭죽 터뜨리기</button>
     </div>
 
     <div class="footer">with 🤍 from 기영에프앤비</div>
@@ -562,7 +608,44 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // 폭죽
+    // ===== 카운터 API =====
+    const COUNTER_NS = 'azmo-shin-kiyoung-chukha';
+    const COUNTER_KEY = 'fireworks';
+    const API_BASE = 'https://api.counterapi.dev/v1';
+    const counterEl = document.getElementById('counterNum');
+    let currentCount = 0;
+
+    function updateCounterDisplay(n) {
+        currentCount = n;
+        counterEl.textContent = n.toLocaleString();
+        counterEl.classList.remove('bump');
+        void counterEl.offsetWidth;
+        counterEl.classList.add('bump');
+    }
+
+    // 현재 카운트 로드
+    fetch(`${API_BASE}/${COUNTER_NS}/${COUNTER_KEY}`)
+        .then(r => r.json())
+        .then(data => updateCounterDisplay(data.count || 0))
+        .catch(() => {
+            // API 안되면 localStorage 폴백
+            const local = parseInt(localStorage.getItem('chukha_count') || '0');
+            updateCounterDisplay(local);
+        });
+
+    // 카운터 증가
+    function incrementCounter() {
+        fetch(`${API_BASE}/${COUNTER_NS}/${COUNTER_KEY}/up`)
+            .then(r => r.json())
+            .then(data => updateCounterDisplay(data.count || currentCount + 1))
+            .catch(() => {
+                const next = currentCount + 1;
+                localStorage.setItem('chukha_count', next);
+                updateCounterDisplay(next);
+            });
+    }
+
+    // ===== 폭죽 =====
     function launchFireworks() {
         const colors = ['#ffd700','#ff6b9d','#4ecdc4','#a864fd','#ff9a9e','#84fab0','#fbc2eb','#fff','#ffb347'];
         const screenW = window.innerWidth;
@@ -601,11 +684,16 @@
             }, f * 350);
         }
 
-        // 진동 (모바일)
         if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
     }
 
-    // 페이지 로드시 자동 폭죽
+    // 축하 버튼 = 폭죽 + 카운터 증가
+    function celebrate() {
+        launchFireworks();
+        incrementCounter();
+    }
+
+    // 페이지 로드시 자동 폭죽 (카운트 안 올림)
     window.addEventListener('load', () => setTimeout(launchFireworks, 2000));
 </script>
 
